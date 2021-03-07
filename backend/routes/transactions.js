@@ -1,9 +1,12 @@
 const express = require('express');
 const chalk = require('chalk');
+const { getTransactions } = require('../controllers/transactions');
 const router = express.Router();
 
-router.get('/', (req, res) => res.send(
-    chalk.yellow('Working on route home')
-    ));
+router
+    .route('/')
+    .get(getTransactions);
+
+
 
 module.exports = router;
