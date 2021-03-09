@@ -15,6 +15,9 @@ const transactions = require('./routes/transactions');
 
 const app = express();
 
+//Allows us to use the bodyparser
+app.use(express.json())
+
 app.use('/api/v1/transactions', transactions)
 
 const PORT = process.env.PORT || 5000;
