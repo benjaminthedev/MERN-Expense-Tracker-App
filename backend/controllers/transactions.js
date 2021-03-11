@@ -18,7 +18,7 @@ exports.getTransactions = async (req, res, next) => {
             data: transactions  
         });
     } catch (error) {
-        return res.send(500).json({
+        return res.status(500).json({
             success: false, 
             error: 'Server Error, sorry.'
         });
@@ -30,7 +30,28 @@ exports.getTransactions = async (req, res, next) => {
 // @access Public
 
 exports.addTransaction = async (req, res, next) => {
-    res.send('POST Transactions');
+    try {
+        const { text, amount } = req.body;
+        const transaction = await Transaction.create(req.body);
+        return res.status(201).json({
+            success: true, 
+            data: transaction
+        });        
+    } catch (err) {
+      if(err.name === 'ValidationError'){
+        const message = Object.values(err.errors).map(val => val.message);
+        //Client err 400
+        return res.status(400).json({
+            success: false, 
+            error: messages
+        })
+      } else {
+        return res.status(500).json({
+            success: false, 
+            error: 'Server Error, sorry.'
+        });
+      }
+    }
 }
 
 
