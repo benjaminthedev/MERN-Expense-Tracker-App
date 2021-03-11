@@ -13,10 +13,13 @@ connectDB();
 //Get Transactions
 const transactions = require('./routes/transactions');
 
+//Create the app
 const app = express();
 
-//Allows us to use the bodyparser
-app.use(express.json())
+app.use(express.json());
+
+//Allows us to use the bodyparser middlewear
+app.use(express.json());
 
 app.use('/api/v1/transactions', transactions)
 
